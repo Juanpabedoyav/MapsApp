@@ -10,6 +10,7 @@ export const MapReducer = (state:MapState, action:MapAction):MapState  =>{
             return{
                 ...state,
                 isReady:true,
+                map:action.payload
               
                 
             }
