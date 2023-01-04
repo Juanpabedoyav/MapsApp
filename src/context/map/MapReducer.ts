@@ -1,23 +1,19 @@
-import { Map } from "mapbox-gl";
-import { MapState } from "./MapProvider";
+import { Map } from 'mapbox-gl'
+import { MapState } from './MapProvider'
 
-type MapAction = { type: 'setMap', payload: Map}
+interface MapAction { type: 'setMap', payload: Map }
 
-export const MapReducer = (state:MapState, action:MapAction):MapState  =>{
+export const MapReducer = (state: MapState, action: MapAction): MapState => {
+  switch (action.type) {
+  case 'setMap':
+    return {
+      ...state,
+      isReady: true,
+      map: action.payload
 
-    switch (action.type) {
-        case 'setMap':
-            return{
-                ...state,
-                isReady:true,
-                map:action.payload
-              
-                
-            }
-            
-    
-        default:
-            return state;
     }
 
+  default:
+    return state
+  }
 }

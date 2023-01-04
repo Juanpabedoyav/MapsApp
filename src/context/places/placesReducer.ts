@@ -1,21 +1,19 @@
-import { PlacesState } from "./PlacesProvider";
+import { PlacesState } from './PlacesProvider'
 
-type PlaceAction = { type: 'setUserLocation', payload:[number, number] }
+interface PlaceAction { type: 'setUserLocation', payload: [number, number] }
 
-export const placesReducer = ( state:PlacesState, action:PlaceAction ):PlacesState =>{
-    switch (action.type) {
-        case 'setUserLocation':
-            return{
-                ...state,
-                isLoading: false,
-                userLocation: action.payload
-            }
-    
-        default:
-            return{
-                ...state,
-            }
+export const placesReducer = (state: PlacesState, action: PlaceAction): PlacesState => {
+  switch (action.type) {
+  case 'setUserLocation':
+    return {
+      ...state,
+      isLoading: false,
+      userLocation: action.payload
     }
 
-    
+  default:
+    return {
+      ...state
+    }
+  }
 }

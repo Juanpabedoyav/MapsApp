@@ -21,10 +21,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "standard"
+    "eject": "react-scripts eject",
+    "lint": "eslint . --fix"
   },
   "browserslist": {
     "production": [
@@ -40,6 +38,9 @@
   },
   "devDependencies": {
     "@types/mapbox-gl": "^2.7.10",
-    "standard": "^17.0.0"
+    "@typescript-eslint/eslint-plugin": "^5.48.0",
+    "@typescript-eslint/parser": "^5.48.0",
+    "eslint": "^8.31.0",
+    "eslint-plugin-react": "^7.31.11"
   }
 }
