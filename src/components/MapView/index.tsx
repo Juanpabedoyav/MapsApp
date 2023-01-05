@@ -38,7 +38,6 @@ export const MapView = () => {
         left: '0'
       }}
     >
-      {userLocation?.join(',')}
     </div>
   )
 }
