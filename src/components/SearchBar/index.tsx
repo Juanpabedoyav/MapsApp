@@ -1,7 +1,9 @@
-import { ChangeEvent, useRef } from 'react'
+import { ChangeEvent, useContext, useRef } from 'react'
+import { PlaceContext } from '../../context/places/PlacesContext'
 
 export const SearchBar = () => {
   
+  const {searchByQuery} = useContext(PlaceContext)
   const debounceRef = useRef<NodeJS.Timeout>()
   
   const handleQuery = ( event: ChangeEvent<HTMLInputElement>) =>{
@@ -9,8 +11,7 @@ export const SearchBar = () => {
       clearTimeout( debounceRef.current)
       
     debounceRef.current = setTimeout(() =>{
-      console.log('dimelo',event.target.value)
-
+      searchByQuery(event.target.value)
     }, 1000)
   }
 
