@@ -1,7 +1,7 @@
 import { Map } from 'mapbox-gl'
 import { MapState } from './MapProvider'
 
-interface MapAction { type: 'setMap', payload: Map }
+type MapAction = { type: 'setMap', payload: Map }
 
 export const MapReducer = (state: MapState, action: MapAction): MapState => {
   switch (action.type) {
