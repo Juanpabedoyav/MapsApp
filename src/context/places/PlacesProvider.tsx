@@ -31,7 +31,10 @@ export const PlacesProvider = ({ children }: PlacesProviderProps) => {
 
 
   const searchByQuery = async( query: string): Promise<Feature[]> =>{
-    if(query.length === 0) return []
+    if(query.length === 0) {
+      dispatch({type: 'setPlace', payload:[]})  
+      return []
+    }
     if(!state.userLocation) throw new Error ('No es posible acceder a la ubicacion')
 
     dispatch({type: 'setLoadingPlaces'})

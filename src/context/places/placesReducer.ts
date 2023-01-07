@@ -24,7 +24,7 @@ export const placesReducer = (state: PlacesState, action: PlaceAction): PlacesSt
   case 'setPlace':
     return {
       ...state,
-      isLoadingPlaces:false,
+      isLoadingPlaces: false,
       places: action.payload
     }
   default:
