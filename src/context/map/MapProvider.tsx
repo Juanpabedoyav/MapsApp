@@ -3,6 +3,8 @@ import { MapContext } from './MapContext'
 import { MapReducer } from './MapReducer'
 import { useContext, useEffect, useReducer } from 'react'
 import { PlaceContext } from '../places/PlacesContext'
+import { directionsApi } from '../../api/directionsApi'
+import { DirectionResponse } from '../../interfaces/direction'
 
 export interface MapState {
   isReady: boolean
@@ -56,10 +58,17 @@ export const MapProvider = ({ children }: MapProviderProps) => {
 
   }
 
+  const setDirections = async (start: [number, number], end: [number, number]) =>{
+    const res = await directionsApi.get<DirectionResponse>(`/${start.join(',')};${end.join(',')}`)
+    console.log(res)
+  }
+
+
   return (
     <MapContext.Provider value={{
       ...state,
-      setMap
+      setMap,
+      setDirections
     }}
     >
       {children}
