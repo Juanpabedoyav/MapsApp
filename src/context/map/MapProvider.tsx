@@ -1,8 +1,10 @@
-import { Map, Marker, Popup } from 'mapbox-gl'
+import { AnySourceData, LngLatBounds, Map, Marker, Popup } from 'mapbox-gl'
 import { MapContext } from './MapContext'
 import { MapReducer } from './MapReducer'
 import { useContext, useEffect, useReducer } from 'react'
 import { PlaceContext } from '../places/PlacesContext'
+import { directionsApi } from '../../api/directionsApi'
+import { DirectionResponse } from '../../interfaces/direction'
 
 export interface MapState {
   isReady: boolean
@@ -56,10 +58,69 @@ export const MapProvider = ({ children }: MapProviderProps) => {
 
   }
 
+  const setDirections = async (start: [number, number], end: [number, number]) =>{
+    const res = await directionsApi.get<DirectionResponse>(`/${start.join(',')};${end.join(',')}`)
+    const {geometry} = res.data.routes[0]
+    const {coordinates: coords} = geometry
+    console.log(coords)
+    const bounds = new LngLatBounds(
+      start,
+      start
+    )
+    for (const coord of coords) {
+      const newCoord: [number, number] = [coord[0] , coord[1]]
+      bounds.extend(newCoord)
+    }
+    state.map?.fitBounds(bounds,{
+      padding: 300
+    })
+    //polyline
+    const sourceData: AnySourceData =  {
+      type:'geojson',
+      data:{
+        type: 'FeatureCollection',
+        features:[
+          {
+            type:'Feature',
+            properties:{},
+            geometry:{
+              type:'LineString',
+              coordinates: coords
+            }
+          }
+        ]
+      }
+
+    }
+    if(state.map?.getLayer('RouteString')){
+      state.map.removeLayer('RouteString')
+      state.map.removeSource('RouteString')
+      
+    }
+
+    state.map?.addSource('RouteString', sourceData )
+
+    state.map?.addLayer({
+      id:'RouteString',
+      type: 'line',
+      source: 'RouteString',
+      layout:{
+        'line-cap':'square',
+        'line-join':'round'
+      },
+      paint:{
+        'line-color': 'black',
+        'line-width' : 4,
+      }
+    })
+  }
+
+
   return (
     <MapContext.Provider value={{
       ...state,
-      setMap
+      setMap,
+      setDirections
     }}
     >
       {children}

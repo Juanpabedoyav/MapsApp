@@ -4,8 +4,8 @@ import { MapContext } from '../../context/map/MapContext'
 import { Feature } from '../../interfaces/places'
 
 export const SearchResults = () => {
-  const {places, isLoadingPlaces} = useContext(PlaceContext)
-  const {map} = useContext(MapContext)
+  const {places, isLoadingPlaces, userLocation} = useContext(PlaceContext)
+  const {map, setDirections} = useContext(MapContext)
   
   const handleFlyTo = ( place:Feature) => {
     const [lng, lat] = place.center
@@ -15,6 +15,12 @@ export const SearchResults = () => {
     })
 
 
+  }
+  const getRoute = (place:Feature) =>{
+    if(!userLocation) return
+    const [lnt, lat] = place.center
+    
+    setDirections(userLocation, [lnt,lat] )
   }
 
   if(isLoadingPlaces) {
@@ -35,7 +41,9 @@ export const SearchResults = () => {
             key={place.id}>
             <h5>{place.text}</h5>
             <p>{place.place_name_es}</p>
-            <button>direccion</button>
+            <button
+              onClick={() => getRoute(place)}
+            >direccion</button>
           </li>
         ))
       }
