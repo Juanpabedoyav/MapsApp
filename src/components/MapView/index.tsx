@@ -1,7 +1,9 @@
 import { useContext, useLayoutEffect, useRef } from 'react'
 import { PlaceContext } from '../../context/places/PlacesContext'
 import { Loading } from '../Loading'
-import { Map } from 'mapbox-gl'
+
+//@ts-ignore
+import { Map } from '!mapbox-gl'
 import { MapContext } from '../../context/map/MapContext'
 
 export const MapView = () => {

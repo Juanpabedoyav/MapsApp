@@ -1,5 +1,6 @@
 import { createContext } from 'react'
-import { Map } from 'mapbox-gl'
+//@ts-ignore
+import { Map } from '!mapbox-gl'
 export interface MapContextProps {
   isReady: boolean
   map?: Map

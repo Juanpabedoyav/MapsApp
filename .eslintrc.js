@@ -22,6 +22,7 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'never'],
     '@typescript-eslint/no-non-null-assertion': 'warn',
-    'linebreak-style': 0
+    'linebreak-style': 0,
+    '@typescript-eslint/ban-ts-comment': 'warn'
   }
 }
