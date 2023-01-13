@@ -1,4 +1,4 @@
-import { Map, Marker, Popup } from 'mapbox-gl'
+import { LngLatBounds, Map, Marker, Popup } from 'mapbox-gl'
 import { MapContext } from './MapContext'
 import { MapReducer } from './MapReducer'
 import { useContext, useEffect, useReducer } from 'react'
@@ -60,7 +60,23 @@ export const MapProvider = ({ children }: MapProviderProps) => {
 
   const setDirections = async (start: [number, number], end: [number, number]) =>{
     const res = await directionsApi.get<DirectionResponse>(`/${start.join(',')};${end.join(',')}`)
-    console.log(res)
+    const {geometry} = res.data.routes[0]
+    const {coordinates: coords} = geometry
+    console.log(coords)
+    const bounds = new LngLatBounds(
+      start,
+      start
+    )
+    for (const coord of coords) {
+      const newCoord: [number, number] = [coord[0] , coord[1]]
+      bounds.extend(newCoord)
+    }
+    state.map?.fitBounds(bounds,{
+      padding: 300
+    })
+
+    
+
   }
 
 
