@@ -22,7 +22,8 @@ export const ButtonLocation = () => {
  
   return (
     <>
-      <button
+      <button 
+        className='rounded fixed'
         style={{
           zIndex: 999,
           position: 'fixed'
