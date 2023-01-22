@@ -19,17 +19,16 @@ export const ButtonLocation = () => {
 
   }
  
+ 
   return (
     <>
-      {
-        isReady ?
-          <button
-            title='Your Location' 
-            className='get-location'
-            onClick={ handleClick}
-          >📍</button>
-          :''
-      }
+      <button
+        style={{
+          zIndex: 999,
+          position: 'fixed'
+        }}
+        onClick={ handleClick}
+      >Mi Ubicación</button>
     </>
   )
 }
