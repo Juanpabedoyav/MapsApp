@@ -50,12 +50,13 @@ export const MapProvider = ({ children }: MapProviderProps) => {
     dispatch({ type: 'setMap', payload: map })
     const locationPopUp = new Popup()
       .setHTML(`
-          <h3>You are Here !!!</h3>
+          <h6>You are Here !!!</h6>
           `)
-    new Marker()
+    new Marker({'color': '#b40219' })
       .setLngLat( map.getCenter())
       .setPopup(locationPopUp)
       .addTo(map)
+      
 
   }
 
@@ -73,8 +74,11 @@ export const MapProvider = ({ children }: MapProviderProps) => {
       bounds.extend(newCoord)
     }
     state.map?.fitBounds(bounds,{
-      padding: 300
+      padding: 180
     })
+    // state.map.flyTo({
+    //   zoom: 14,
+    // })
     //polyline
     const sourceData: AnySourceData =  {
       type:'geojson',
@@ -107,8 +111,9 @@ export const MapProvider = ({ children }: MapProviderProps) => {
       source: 'RouteString',
       layout:{
         'line-cap':'square',
-        'line-join':'round'
+        'line-join':'bevel'
       },
+      
       paint:{
         'line-color': 'black',
         'line-width' : 4,

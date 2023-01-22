@@ -10,7 +10,7 @@ export const SearchResults = () => {
   const handleFlyTo = ( place:Feature) => {
     const [lng, lat] = place.center
     map?.flyTo({
-      zoom: 17,
+      zoom: 13,
       center: [lng, lat]
     })
 
@@ -19,7 +19,6 @@ export const SearchResults = () => {
   const getRoute = (place:Feature) =>{
     if(!userLocation) return
     const [lnt, lat] = place.center
-    
     setDirections(userLocation, [lnt,lat] )
   }
 
@@ -33,7 +32,7 @@ export const SearchResults = () => {
   if(places.length === 0) return <></>
 
   return (
-    <ul>
+    <ul className='list list-unstyled'>
       {
         places.map( place =>(
           <li
@@ -42,8 +41,9 @@ export const SearchResults = () => {
             <h5>{place.text}</h5>
             <p>{place.place_name_es}</p>
             <button
+              className='route'
               onClick={() => getRoute(place)}
-            >direccion</button>
+            >Get Route ⛗</button>
           </li>
         ))
       }
